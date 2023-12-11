@@ -1,24 +1,32 @@
 package org.example.hardware;
 
-public class CPU extends Componente{
-    private Integer idComponente;
+import org.example.logicaRegistro.Alerta;
+import org.springframework.jdbc.core.JdbcTemplate;
 
-    public CPU(Integer idComponente, String nomeComponente, String unidadeMedida, Integer fkCliente, Integer idComponente1) {
-        super(idComponente, nomeComponente, unidadeMedida, fkCliente);
-        this.idComponente = idComponente;
+public class CPU extends Componente{
+
+
+    public CPU( String nomeComponente, String unidadeMedida, Integer fkCliente) {
+        super(nomeComponente, unidadeMedida, fkCliente);
     }
 
     @Override
-    public String capturar() {
-        return "INSERT INTO registro (valorRegistro, dtHoraRegistro, fkComponente) " +
-                "VALUES (%s, %s, %s)".formatted(looca.getProcessador().getUso(), getTempo(), getIdComponente());
+    public void capturar(JdbcTemplate conexao) {
+
+
+        Double valorRegistro = looca.getProcessador().getUso();
+
+
+
+        conexao.execute("INSERT INTO registro (valorRegistro, dtHoraRegistro, fkComponente) " +
+                    "VALUES (%d, %s, %d);").formatted(looca.getProcessador().getUso(), getTempo(),1));
+
+        if (valorRegistro > 80){
+            Alerta alerta = null;
+
+            System.out.println(alerta.getAlerta());
+        }
+
     };
 
-    public Integer getIdComponente() {
-        return idComponente;
-    }
-
-    public void setIdComponente(Integer idComponente) {
-        this.idComponente = idComponente;
-    }
 }

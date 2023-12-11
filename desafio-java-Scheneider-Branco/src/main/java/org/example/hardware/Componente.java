@@ -4,14 +4,14 @@ import com.github.britooo.looca.api.core.Looca;
 
 public abstract class Componente implements Capturavel {
     Looca looca;
+
     Integer idComponente;
     String nomeComponente;
     String unidadeMedida;
     Integer fkCliente;
 
-    public Componente(Integer idComponente, String nomeComponente, String unidadeMedida, Integer fkCliente) {
+    public Componente( String nomeComponente, String unidadeMedida, Integer fkCliente) {
         this.looca = new Looca();
-        this.idComponente = idComponente;
         this.nomeComponente = nomeComponente;
         this.unidadeMedida = unidadeMedida;
         this.fkCliente = fkCliente;

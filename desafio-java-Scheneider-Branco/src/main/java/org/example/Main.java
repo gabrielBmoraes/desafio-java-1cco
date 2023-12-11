@@ -2,8 +2,12 @@ package org.example;
 
 import org.example.banco.Conexao;
 import org.example.hardware.CPU;
+import org.example.hardware.Componente;
+import org.example.hardware.Disco;
 import org.example.hardware.RAM;
+import org.example.logicaRegistro.ClasseTimer;
 import org.example.logicaRegistro.Cliente;
+import org.example.logicaRegistro.Registro;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
@@ -11,6 +15,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 import java.util.Scanner;
+import java.util.TimerTask;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,6 +27,7 @@ public class Main {
 
         boolean usuarioValidacao = false;
         int posicaoUsuario = -1;
+        Integer idCliente = -1;
 
         do {
             System.out.println("""
@@ -38,6 +44,7 @@ public class Main {
 
                     System.out.println("\nlogin realizado com sucesso!\n");
                     posicaoUsuario = i;
+                    idCliente = usuarioCadastrado.get(posicaoUsuario).getIdCliente();
                     break;
 
 
@@ -77,7 +84,7 @@ public class Main {
                         Pressione para coletar dados de:
                         1 - CPU
                         2 - DISCO
-                        3 - Memória Ram
+                        3 - RAM
                         0 - Voltar ao menu                                                             
                         """
                 );
@@ -86,34 +93,17 @@ public class Main {
 
                 switch (respostaUsuario) {
                     case 1:
-                        CPU cpu = new CPU();
-                        cpu.capturar()
+                        CPU cpu = new CPU("cpu","%", idCliente);
+                        capturarDados(cpu,con);
                         break;
                     case 2:
-                        RAM memoriaRam = new RAM();
 
-                        System.out.println(memoriaRam);
-                        con.update("insert into registro(valorRegistro) value (?)",
-                                memoriaRam.getUso());
-
-                        con.update("insert into registro(valorRegistro) values (?)",
-                                memoriaRam.getDisponivel());
-
-                        con.update("insert into registro(valorRegistro) values (?)",
-                                memoriaRam.getTotal());
+                        Disco disco = new Disco("disco","%", idCliente);
+                        capturarDados(disco,con);
                         break;
                     case 3:
-                        RAM memoriaRam = new RAM();
-
-                        System.out.println(memoriaRam);
-                        con.update("insert into registro(valorRegistro) value (?)",
-                                memoriaRam.getUso());
-
-                        con.update("insert into registro(valorRegistro) values (?)",
-                                memoriaRam.getDisponivel());
-
-                        con.update("insert into registro(valorRegistro) values (?)",
-                                memoriaRam.getTotal());
+                        RAM memoriaRam = new RAM("ram","%", idCliente);
+                        capturarDados(memoriaRam,con);
                         break;
                     case 0:
                         System.out.println("voltando ao menu");
@@ -138,19 +128,20 @@ public class Main {
 
                 switch (respostaUsuario){
                     case 1:
-                        List<Registro> registrosCpu = con.query("select * from registro" +
-                                " join recurso on tipoRecurso like 'Core%';", new BeanPropertyRowMapper<>(Registro.class));
+                        List<Registro> registrosCpu = con.query(
+                                "select registro.* from registro join componente" +
+                                        "on fkComponente = 1", new BeanPropertyRowMapper<>(Registro.class));
                         System.out.println(registrosCpu);
                         break;
                     case 2:
-                        List<Registro> registrosCpu = con.query("select * from registro" +
-                                " join recurso on tipoRecurso = 'Leitura RAM';", new BeanPropertyRowMapper<>(Registro.class));
-                        System.out.println(registrosCpu);
+                        List<Registro> registrosDisco = con.query("select registro.* from registro" +
+                                " join componente on fkComponente = 2;", new BeanPropertyRowMapper<>(Registro.class));
+                        System.out.println(registrosDisco);
                         break;
                     case 3:
-                        List<Registro> registrosCpu = con.query("select * from registro" +
-                                " join recurso on tipoRecurso = 'Leitura RAM';", new BeanPropertyRowMapper<>(Registro.class));
-                        System.out.println(registrosCpu);
+                        List<Registro> registrosRam = con.query("select registro.* from registro" +
+                                "join componente on fkComponente = 3;", new BeanPropertyRowMapper<>(Registro.class));
+                        System.out.println(registrosRam);
                         break;
                     case 0:
                         System.out.println("voltando ao menu");
@@ -169,6 +160,33 @@ public class Main {
             }
 
         }
+    }
 
+    public static void capturarDados(Componente componente, JdbcTemplate conexao){
+
+        Scanner leitorQuantidade = new Scanner(System.in);
+        Boolean capturar = true;
+        TimerTask tempoCaptura = new TimerTask() {
+            @Override
+            public void run() {
+                componente.capturar(conexao);
+                System.out.println("Valor registrado com sucesso!");
+            }
+        };
+
+        do {
+
+            System.out.println("Informe a quantidade de tempo que deseja ficar capturando: ");
+            Integer tempo = leitorQuantidade.nextInt();
+            tempoCaptura.run();
+            System.out.println("Digite 0 para sair, se não, continue esperando");
+            tempo = leitorQuantidade.nextInt();
+
+            if (tempo == 0){
+                capturar  = false;
+                System.out.println("Voltando ao menu!\n");
+            }
+
+        } while (capturar);
     }
 }
