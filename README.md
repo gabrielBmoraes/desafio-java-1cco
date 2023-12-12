@@ -14,7 +14,8 @@ Restrições:
 
 Relacionamento entre as tabelas:
 
-![image](https://github.com/gabrielBmoraes/desafio-java-1cco/assets/125585512/0575e1f0-b302-4d36-8b2e-80c341aa2b03)
+![image](https://github.com/gabrielBmoraes/desafio-java-1cco/assets/125585512/7bdc2619-9aa8-4bc6-9e90-e645be0422cb)
+
 
 
 
