@@ -11,8 +11,11 @@ Restrições:
 - Irá ser capturado apenas o uso, em porcentual, de disco, de cpu do processador e de memória ram.
 
 
+
 Relacionamento entre as tabelas:
-![image](https://github.com/gabrielBmoraes/desafio-java-1cco/assets/125585512/7e3fa9b4-7df8-4367-83a9-2520430505ba)
+
+![image](https://github.com/gabrielBmoraes/desafio-java-1cco/assets/125585512/0575e1f0-b302-4d36-8b2e-80c341aa2b03)
+
 
 
 
