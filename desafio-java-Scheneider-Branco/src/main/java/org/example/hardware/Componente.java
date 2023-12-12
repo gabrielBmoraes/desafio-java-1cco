@@ -1,8 +1,9 @@
 package org.example.hardware;
 
 import com.github.britooo.looca.api.core.Looca;
+import org.springframework.jdbc.core.JdbcTemplate;
 
-public abstract class Componente implements Capturavel {
+public class Componente implements Capturavel {
     Looca looca;
 
     Integer idComponente;
@@ -10,11 +11,15 @@ public abstract class Componente implements Capturavel {
     String unidadeMedida;
     Integer fkCliente;
 
-    public Componente( String nomeComponente, String unidadeMedida, Integer fkCliente) {
+    public Componente(Integer idComponente, String nomeComponente, String unidadeMedida, Integer fkCliente) {
         this.looca = new Looca();
+        this.idComponente = idComponente;
         this.nomeComponente = nomeComponente;
         this.unidadeMedida = unidadeMedida;
         this.fkCliente = fkCliente;
+    }
+
+    public Componente() {
     }
 
     public String getNomeComponente() {
@@ -39,5 +44,18 @@ public abstract class Componente implements Capturavel {
 
     public void setFkCliente(Integer fkCliente) {
         this.fkCliente = fkCliente;
+    }
+
+    public Integer getIdComponente() {
+        return idComponente;
+    }
+
+    public void setIdComponente(Integer idComponente) {
+        this.idComponente = idComponente;
+    }
+
+    @Override
+    public void capturar(JdbcTemplate conexao, Integer fkComponente) {
+
     }
 }

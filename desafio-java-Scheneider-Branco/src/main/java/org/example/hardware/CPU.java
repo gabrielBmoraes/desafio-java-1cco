@@ -4,29 +4,25 @@ import org.example.logicaRegistro.Alerta;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public class CPU extends Componente{
-
-
-    public CPU( String nomeComponente, String unidadeMedida, Integer fkCliente) {
-        super(nomeComponente, unidadeMedida, fkCliente);
+    public CPU(Integer idComponente, String nomeComponente, String unidadeMedida, Integer fkCliente) {
+        super(idComponente, nomeComponente, unidadeMedida, fkCliente);
     }
 
     @Override
-    public void capturar(JdbcTemplate conexao) {
-
-
+    public void capturar(JdbcTemplate conexao, Integer fkComponente) {
         Double valorRegistro = looca.getProcessador().getUso();
 
-
-
-        conexao.execute("INSERT INTO registro (valorRegistro, dtHoraRegistro, fkComponente) " +
-                    "VALUES (%d, %s, %d);").formatted(looca.getProcessador().getUso(), getTempo(),1));
-
-        if (valorRegistro > 80){
-            Alerta alerta = null;
-
-            System.out.println(alerta.getAlerta());
+        if(valorRegistro > 70){
+            System.out.println(Alerta.valueOf("MEDIO"));
+        } else if (valorRegistro > 50) {
+            System.out.println(Alerta.valueOf("ALTO"));
+        }
+        else{
+            System.out.println(Alerta.valueOf("BAIXO"));
         }
 
+        conexao.execute("INSERT INTO registro (valorRegistro, dtHoraRegistro, fkComponente) " +
+                    "VALUES (%s, '%s', %s);".formatted( Math.round(valorRegistro), getTempo(), getIdComponente()));
     };
 
 }

@@ -9,9 +9,9 @@ public class Conexao {
     public Conexao() {
         BasicDataSource dataSource = new BasicDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost/%s".formatted("desafio_banco"));
-        dataSource.setUsername("aluno");
-        dataSource.setPassword("sptech");
+        dataSource.setUrl("jdbc:mysql://localhost/%s".formatted("desafioJava"));
+        dataSource.setUsername("root");
+        dataSource.setPassword("");
         this.conexao = new JdbcTemplate(dataSource);
     }
     public JdbcTemplate getConexao(){

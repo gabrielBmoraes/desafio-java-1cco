@@ -12,6 +12,9 @@ public class Cliente {
         this.senha = senha;
     }
 
+    public Cliente() {
+    }
+
     public String getEmail() {
         return email;
     }

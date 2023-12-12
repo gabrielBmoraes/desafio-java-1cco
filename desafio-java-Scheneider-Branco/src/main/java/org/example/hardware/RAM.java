@@ -1,14 +1,29 @@
 package org.example.hardware;
 
-public class RAM extends Componente{
+import org.example.logicaRegistro.Alerta;
+import org.springframework.jdbc.core.JdbcTemplate;
 
-    public RAM(String nomeComponente, String unidadeMedida, Integer fkCliente) {
-        super(nomeComponente, unidadeMedida, fkCliente);
+import java.time.LocalDateTime;
+
+public class RAM extends Componente{
+    public RAM(Integer idComponente, String nomeComponente, String unidadeMedida, Integer fkCliente) {
+        super(idComponente, nomeComponente, unidadeMedida, fkCliente);
     }
 
     @Override
-    public String capturar() {
-        return "INSERT INTO registro (valorRegistro, dtHoraRegistro, fkComponente) " +
-                "VALUES (%d, %s, %d)".formatted(looca.getMemoria().getEmUso(), getTempo(),3);
+    public void capturar(JdbcTemplate conexao, Integer fkComponente) {
+        Long valorRegistro =  looca.getMemoria().getEmUso();
+
+        if(valorRegistro > 70){
+            System.out.println(Alerta.valueOf("MEDIO"));
+        } else if (valorRegistro > 50) {
+            System.out.println(Alerta.valueOf("ALTO"));
+        }
+        else{
+            System.out.println(Alerta.valueOf("BAIXO"));
+        }
+
+        conexao.execute("INSERT INTO registro (valorRegistro, dtHoraRegistro, fkComponente) " +
+                "VALUES (%s, '%s', %s);".formatted( Math.round(valorRegistro), getTempo(), getIdComponente()));
     }
 }

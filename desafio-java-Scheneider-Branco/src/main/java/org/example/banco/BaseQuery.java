@@ -1,6 +1,7 @@
 package org.example.banco;
 
 import org.example.hardware.Componente;
+import org.example.hardware.RAM;
 import org.example.logicaRegistro.Cliente;
 import org.example.logicaRegistro.Registro;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -24,7 +25,7 @@ public class BaseQuery {
         return connection.query("SELECT * FROM Cliente", new BeanPropertyRowMapper<>(Cliente.class));
     }
 
-    public List<Componente> selectComponenteCliente(Integer id_cliente){
-        return connection.query("SELECT * FROM componente WHERE fk_cliente = ?", new BeanPropertyRowMapper<>(Componente.class), id_cliente);
+    public List<Componente> selectComponenteCliente(Integer fk_cliente){
+        return connection.query("SELECT * FROM componente WHERE fkCliente = %s".formatted(fk_cliente), new BeanPropertyRowMapper<>(Componente.class));
     }
 }
