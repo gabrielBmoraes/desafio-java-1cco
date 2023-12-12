@@ -1,6 +1,11 @@
 # desafio-java-1cco
 Desafio de java, 2°Semestre, de Linguagem de Programação 2023, 1CCO 
 
+Integrantes: 
+Gabriel B. de Moraes 
+Rafael Scheneider
+
+
 Objetivo:
 - Desenvolver um aplicativo Java para monitoramento de recursos do sistema, aderindo aos princípios SOLID e utilizando a biblioteca Looca.
 
@@ -25,11 +30,3 @@ Relacionamento entre as tabelas:
 Diagrama de Classes: 
 
 ![diagrama_classe_java](https://github.com/gabrielBmoraes/desafio-java-1cco/assets/125585512/882052d9-708f-4633-8783-0edd0b071ebb)
-
-
-
-
-
-Integrantes: 
-Gabriel B. de Moraes 
-Rafael Scheneider
