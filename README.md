@@ -24,10 +24,12 @@ Instruções:
 
 Relacionamento entre as tabelas:
 
+![image](https://github.com/gabrielBmoraes/desafio-java-1cco/assets/125585512/dff1d477-1c64-4b19-a5ca-9ca63e5fe3d8)
+
+
+
+
+Diagrama de Classes:
+
 ![diagrama_classe_desafio](https://github.com/gabrielBmoraes/desafio-java-1cco/assets/125585512/0911f2c0-7b6d-43a1-8e63-dc6cb10b8e83)
 
-
-
-Diagrama de Classes: 
-
-![diagrama_classe_java](https://github.com/gabrielBmoraes/desafio-java-1cco/assets/125585512/882052d9-708f-4633-8783-0edd0b071ebb)
