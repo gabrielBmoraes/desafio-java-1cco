@@ -24,7 +24,8 @@ Instruções:
 
 Relacionamento entre as tabelas:
 
-![image](https://github.com/gabrielBmoraes/desafio-java-1cco/assets/125585512/7bdc2619-9aa8-4bc6-9e90-e645be0422cb)
+![diagrama_classe_desafio](https://github.com/gabrielBmoraes/desafio-java-1cco/assets/125585512/0911f2c0-7b6d-43a1-8e63-dc6cb10b8e83)
+
 
 
 Diagrama de Classes: 
